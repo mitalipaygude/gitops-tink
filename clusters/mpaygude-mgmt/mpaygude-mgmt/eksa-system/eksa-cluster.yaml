@@ -1,0 +1,102 @@
+apiVersion: anywhere.eks.amazonaws.com/v1alpha1
+kind: Cluster
+metadata:
+  name: mpaygude-mgmt
+  namespace: default
+spec:
+  bundlesRef:
+    apiVersion: anywhere.eks.amazonaws.com/v1alpha1
+    name: bundles-1
+    namespace: eksa-system
+  clusterNetwork:
+    cniConfig:
+      cilium: {}
+    pods:
+      cidrBlocks:
+      - 192.168.0.0/16
+    services:
+      cidrBlocks:
+      - 10.96.0.0/12
+  controlPlaneConfiguration:
+    count: 1
+    endpoint:
+      host: 10.80.8.29
+    machineGroupRef:
+      kind: TinkerbellMachineConfig
+      name: mpaygude-mgmt-cp
+  datacenterRef:
+    kind: TinkerbellDatacenterConfig
+    name: mpaygude-mgmt
+  gitOpsRef:
+    kind: GitOpsConfig
+    name: gitops
+  kubernetesVersion: "1.24"
+  managementCluster:
+    name: mpaygude-mgmt
+  workerNodeGroupConfigurations:
+  - count: 1
+    machineGroupRef:
+      kind: TinkerbellMachineConfig
+      name: mpaygude-mgmt
+    name: md-0
+
+---
+apiVersion: anywhere.eks.amazonaws.com/v1alpha1
+kind: TinkerbellDatacenterConfig
+metadata:
+  name: mpaygude-mgmt
+  namespace: default
+spec:
+  tinkerbellIP: 10.80.8.50
+
+---
+apiVersion: anywhere.eks.amazonaws.com/v1alpha1
+kind: TinkerbellMachineConfig
+metadata:
+  annotations:
+    anywhere.eks.amazonaws.com/control-plane: "true"
+  name: mpaygude-mgmt-cp
+  namespace: default
+spec:
+  hardwareSelector:
+    type: cp
+  osFamily: bottlerocket
+  templateRef: {}
+  users:
+  - name: capv
+    sshAuthorizedKeys:
+    - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDjpeSAITl537tBZuOtjqkuDMGGu/BjI+zNRxehtmORa6QA/iv3QlI+SrxwuD7T36KO41XxAqQlVMQm0fMjJr6IpCnhUdwRJXT5CvsajVzwOSg95DtLUAItQ8NCX/QNk4JO1cx4kqTGI2zg4IuFcmTa76qu3+bkLnrUzQU1RgEiFNz4pph9e0F5AFTdVGxoyeOyVlRSQN23as9OxQGBCqtP4FM7HUrlEBILEfrOcuDsifHbYV4v8Ka1Lf4LmKN9e9eHoAiutagOCc+W+ZDElV62acacf0Ez0u1P3qCkDN5LHfjXAnAo9+VITeUOaslcrI2tg4ECVvykY+R+nSaZ7hZWTAzks1ICO9xcMGeohB564e4/G2+jXe0TLcROUGximjACddEWjJE2TYJItWzOhBENnUjowUlHdIynXrszuv8vDqA2q08M83OT0zCfwIPVmRxNc/803ZBbvvKKW5mDDhfIPwo1kn9A4zhybbpqJoCp0gtgbLMWnuDjBhzlH6FQwt+iRoywxQaDPo03FMTTQ2LYm0y0EnEZ3NfNyHaETh1BwsrHajOw9uWhYLfrgBDJnmCne8JeyqN+BsyQ9JYgxuer+ERYFOVI9W7TV3nO9iMFO8KZbC6GezkaBfQ1asn55OAdmXh6QUaU56ruVRWk9cPXtZoSRY230RcdXWUKdzRU9Q==
+
+---
+apiVersion: anywhere.eks.amazonaws.com/v1alpha1
+kind: TinkerbellMachineConfig
+metadata:
+  name: mpaygude-mgmt
+  namespace: default
+spec:
+  hardwareSelector:
+    type: worker
+  osFamily: bottlerocket
+  templateRef: {}
+  users:
+  - name: capv
+    sshAuthorizedKeys:
+    - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDjpeSAITl537tBZuOtjqkuDMGGu/BjI+zNRxehtmORa6QA/iv3QlI+SrxwuD7T36KO41XxAqQlVMQm0fMjJr6IpCnhUdwRJXT5CvsajVzwOSg95DtLUAItQ8NCX/QNk4JO1cx4kqTGI2zg4IuFcmTa76qu3+bkLnrUzQU1RgEiFNz4pph9e0F5AFTdVGxoyeOyVlRSQN23as9OxQGBCqtP4FM7HUrlEBILEfrOcuDsifHbYV4v8Ka1Lf4LmKN9e9eHoAiutagOCc+W+ZDElV62acacf0Ez0u1P3qCkDN5LHfjXAnAo9+VITeUOaslcrI2tg4ECVvykY+R+nSaZ7hZWTAzks1ICO9xcMGeohB564e4/G2+jXe0TLcROUGximjACddEWjJE2TYJItWzOhBENnUjowUlHdIynXrszuv8vDqA2q08M83OT0zCfwIPVmRxNc/803ZBbvvKKW5mDDhfIPwo1kn9A4zhybbpqJoCp0gtgbLMWnuDjBhzlH6FQwt+iRoywxQaDPo03FMTTQ2LYm0y0EnEZ3NfNyHaETh1BwsrHajOw9uWhYLfrgBDJnmCne8JeyqN+BsyQ9JYgxuer+ERYFOVI9W7TV3nO9iMFO8KZbC6GezkaBfQ1asn55OAdmXh6QUaU56ruVRWk9cPXtZoSRY230RcdXWUKdzRU9Q==
+
+---
+apiVersion: anywhere.eks.amazonaws.com/v1alpha1
+kind: GitOpsConfig
+metadata:
+  name: gitops
+  namespace: default
+spec:
+  flux:
+    github:
+      branch: main
+      clusterConfigPath: clusters/mpaygude-mgmt
+      fluxSystemNamespace: flux-system
+      owner: mitalipaygude
+      personal: true
+      repository: gitops-tink
+
+---
