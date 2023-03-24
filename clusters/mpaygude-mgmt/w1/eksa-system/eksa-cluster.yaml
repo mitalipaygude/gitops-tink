@@ -1,0 +1,77 @@
+apiVersion: anywhere.eks.amazonaws.com/v1alpha1
+kind: Cluster
+metadata:
+  name: mpaygude-wl
+  namespace: default
+spec:
+  clusterNetwork:
+    cniConfig:
+      cilium: {}
+    pods:
+      cidrBlocks:
+      - 192.168.0.0/16
+    services:
+      cidrBlocks:
+      - 10.96.0.0/12
+  controlPlaneConfiguration:
+    count: 1
+    endpoint:
+      host: "10.80.8.131"
+    machineGroupRef:
+      kind: TinkerbellMachineConfig
+      name: mpaygude-wl-cp
+  datacenterRef:
+    kind: TinkerbellDatacenterConfig
+    name: mpaygude-wl
+  kubernetesVersion: "1.25"
+  managementCluster:
+    name: mpaygude-mgmt
+  workerNodeGroupConfigurations:
+  - count: 1
+    machineGroupRef:
+      kind: TinkerbellMachineConfig
+      name: mpaygude-wl
+    name: md-1
+---
+apiVersion: anywhere.eks.amazonaws.com/v1alpha1
+kind: TinkerbellDatacenterConfig
+metadata:
+  name: mpaygude-wl
+  namespace: default
+spec:
+        #osImageURL: "http://10.80.8.63:8000/ubuntu-123.gz"
+  tinkerbellIP: "10.80.8.130"
+
+---
+apiVersion: anywhere.eks.amazonaws.com/v1alpha1
+kind: TinkerbellMachineConfig
+metadata:
+  name: mpaygude-wl-cp
+  namespace: default
+spec:
+  hardwareSelector:
+    type: cp
+  osFamily: bottlerocket
+  templateRef: {}
+  users:
+  - name: capv
+    sshAuthorizedKeys:
+    - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDeZN85DhuHqUVR4Pdz1rLb26Tj0wqYDBd1SqZYecGBNlvv8HV/RAlU68JQKce3W48xlZ9cFd8D2lPzazTuv1l5+hhQtjnqz8MdX7O7luqi/PoswHLM98SZWPJzFEPMCTchIQKITwNmpQGlmdIRPWH8Ijhd83/3AKC5pGH0aJkJF0aacJUl1Apobgom7eVjCzAhLgw1RDb0+UPHpSzYzK04DKaV7JopyyLv7ywU2Y5+paQsu/zintsz/07OsDDJWAzP2nu4VoE7tijRX439Hp7lly0YvTRZ58FqLN3leZFiFQuerYHQYAia/gj58SZotf2j5yFdBAcPw5LzB/SdIZ4HWH2CQTEmaSCehZJPPccrIkPd1GCe1hxsOY07HDNSRjU6RqPqV4UmBlBplh2CQpPbqHeldngCgre5ul4qi7JQpQ8vDVJfLxrQuPr/NW8HdGg0YB4jzxVh0/ODsu5rGO8vQJA3P1MBacAIhczQlej7qrFH2TMkaH8Mj3d+ipnYWKc= mpaygude@bcd0746652e3.ant.amazon.com"
+
+---
+apiVersion: anywhere.eks.amazonaws.com/v1alpha1
+kind: TinkerbellMachineConfig
+metadata:
+  name: mpaygude-wl
+  namespace: default
+spec:
+  hardwareSelector:
+    type: worker
+  osFamily: bottlerocket
+  templateRef: {}
+  users:
+  - name: capv
+    sshAuthorizedKeys:
+    - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDeZN85DhuHqUVR4Pdz1rLb26Tj0wqYDBd1SqZYecGBNlvv8HV/RAlU68JQKce3W48xlZ9cFd8D2lPzazTuv1l5+hhQtjnqz8MdX7O7luqi/PoswHLM98SZWPJzFEPMCTchIQKITwNmpQGlmdIRPWH8Ijhd83/3AKC5pGH0aJkJF0aacJUl1Apobgom7eVjCzAhLgw1RDb0+UPHpSzYzK04DKaV7JopyyLv7ywU2Y5+paQsu/zintsz/07OsDDJWAzP2nu4VoE7tijRX439Hp7lly0YvTRZ58FqLN3leZFiFQuerYHQYAia/gj58SZotf2j5yFdBAcPw5LzB/SdIZ4HWH2CQTEmaSCehZJPPccrIkPd1GCe1hxsOY07HDNSRjU6RqPqV4UmBlBplh2CQpPbqHeldngCgre5ul4qi7JQpQ8vDVJfLxrQuPr/NW8HdGg0YB4jzxVh0/ODsu5rGO8vQJA3P1MBacAIhczQlej7qrFH2TMkaH8Mj3d+ipnYWKc= mpaygude@bcd0746652e3.ant.amazon.com"
+
+---
