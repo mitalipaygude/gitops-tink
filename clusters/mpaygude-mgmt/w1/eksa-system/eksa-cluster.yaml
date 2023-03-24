@@ -32,6 +32,11 @@ spec:
       kind: TinkerbellMachineConfig
       name: mpaygude-wl
     name: md-0
+  - count: 1
+    machineGroupRef:
+      kind: TinkerbellMachineConfig
+      name: mpaygude-wl
+    name: md-1
 ---
 apiVersion: anywhere.eks.amazonaws.com/v1alpha1
 kind: TinkerbellDatacenterConfig
