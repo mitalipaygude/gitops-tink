@@ -2,6 +2,7 @@ apiVersion: anywhere.eks.amazonaws.com/v1alpha1
 kind: Cluster
 metadata:
   name: mpaygude-wl
+  namespace: default
 spec:
   clusterNetwork:
     cniConfig:
@@ -36,6 +37,7 @@ apiVersion: anywhere.eks.amazonaws.com/v1alpha1
 kind: TinkerbellDatacenterConfig
 metadata:
   name: mpaygude-wl
+  namespace: default
 spec:
         #osImageURL: "http://10.80.8.63:8000/ubuntu-123.gz"
   tinkerbellIP: "10.80.8.130"
@@ -45,6 +47,7 @@ apiVersion: anywhere.eks.amazonaws.com/v1alpha1
 kind: TinkerbellMachineConfig
 metadata:
   name: mpaygude-wl-cp
+  namespace: default
 spec:
   hardwareSelector:
     type: cp
@@ -60,6 +63,7 @@ apiVersion: anywhere.eks.amazonaws.com/v1alpha1
 kind: TinkerbellMachineConfig
 metadata:
   name: mpaygude-wl
+  namespace: default
 spec:
   hardwareSelector:
     type: worker
