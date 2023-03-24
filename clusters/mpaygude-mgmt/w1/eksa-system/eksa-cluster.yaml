@@ -16,7 +16,7 @@ spec:
   controlPlaneConfiguration:
     count: 1
     endpoint:
-      host: "10.80.8.12"
+      host: "10.80.8.131"
     machineGroupRef:
       kind: TinkerbellMachineConfig
       name: mpaygude-wl-cp
@@ -40,7 +40,7 @@ metadata:
   namespace: default
 spec:
         #osImageURL: "http://10.80.8.63:8000/ubuntu-123.gz"
-  tinkerbellIP: "10.80.8.50"
+  tinkerbellIP: "10.80.8.130"
 
 ---
 apiVersion: anywhere.eks.amazonaws.com/v1alpha1
