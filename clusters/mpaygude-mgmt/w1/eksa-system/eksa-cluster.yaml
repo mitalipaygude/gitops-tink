@@ -23,7 +23,7 @@ spec:
   datacenterRef:
     kind: TinkerbellDatacenterConfig
     name: mpaygude-wl
-  kubernetesVersion: "1.24"
+  kubernetesVersion: "1.25"
   managementCluster:
     name: mpaygude-mgmt
     #workerNodeGroupConfigurations:
