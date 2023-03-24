@@ -35,7 +35,7 @@ spec:
   managementCluster:
     name: mpaygude-mgmt
   workerNodeGroupConfigurations:
-  - count: 2
+  - count: 1
     machineGroupRef:
       kind: TinkerbellMachineConfig
       name: mpaygude-mgmt
