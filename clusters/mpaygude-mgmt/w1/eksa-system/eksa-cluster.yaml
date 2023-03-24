@@ -26,12 +26,12 @@ spec:
   kubernetesVersion: "1.24"
   managementCluster:
     name: mpaygude-mgmt
-  workerNodeGroupConfigurations:
-  - count: 1
-    machineGroupRef:
-      kind: TinkerbellMachineConfig
-      name: mpaygude-wl
-    name: md-1
+    #workerNodeGroupConfigurations:
+    #- count: 1
+    #machineGroupRef:
+    #  kind: TinkerbellMachineConfig
+    #  name: mpaygude-wl
+    #name: md-1
 ---
 apiVersion: anywhere.eks.amazonaws.com/v1alpha1
 kind: TinkerbellDatacenterConfig
