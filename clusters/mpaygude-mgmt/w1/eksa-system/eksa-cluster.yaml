@@ -14,7 +14,7 @@ spec:
       cidrBlocks:
       - 10.96.0.0/12
   controlPlaneConfiguration:
-    count: 3
+    count: 1
     endpoint:
       host: "10.80.8.131"
     machineGroupRef:
@@ -23,7 +23,7 @@ spec:
   datacenterRef:
     kind: TinkerbellDatacenterConfig
     name: mpaygude-wl
-  kubernetesVersion: "1.25"
+  kubernetesVersion: "1.24"
   managementCluster:
     name: mpaygude-mgmt
   workerNodeGroupConfigurations:
