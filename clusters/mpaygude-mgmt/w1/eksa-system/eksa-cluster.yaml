@@ -14,7 +14,7 @@ spec:
       cidrBlocks:
       - 10.96.0.0/12
   controlPlaneConfiguration:
-    count: 1
+    count: 3
     endpoint:
       host: "10.80.8.131"
     machineGroupRef:
@@ -27,7 +27,7 @@ spec:
   managementCluster:
     name: mpaygude-mgmt
   workerNodeGroupConfigurations:
-  - count: 2
+  - count: 1
     machineGroupRef:
       kind: TinkerbellMachineConfig
       name: mpaygude-wl
